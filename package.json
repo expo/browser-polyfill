@@ -2,9 +2,7 @@
   "name": "@expo/browser-polyfill",
   "version": "0.0.0-alpha.0",
   "description": "Browser polyfill for React Native - very beta",
-  "files": [
-    "lib"
-  ],
+  "files": ["lib"],
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -29,7 +27,8 @@
   "devDependencies": {
     "expo": "^25.0.0",
     "react": "16.0.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz"
+    "react-native":
+      "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz"
   },
   "dependencies": {
     "EventEmitter": "^1.0.0",
