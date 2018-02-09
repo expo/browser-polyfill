@@ -1,0 +1,40 @@
+{
+  "name": "@expo/browser-polyfill",
+  "version": "0.0.0-alpha.0",
+  "description": "Browser polyfill for React Native - very beta",
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/expo/expo-browser-polyfill.git"
+  },
+  "keywords": [
+    "expo",
+    "browser",
+    "polyfill",
+    "react-native",
+    "react",
+    "web",
+    "dom",
+    "document",
+    "shim"
+  ],
+  "author": "Evan Bacon",
+  "license": "MIT",
+  "peerDependencies": {
+    "react-native": "*"
+  },
+  "devDependencies": {
+    "expo": "^25.0.0",
+    "react": "16.0.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz"
+  },
+  "dependencies": {
+    "EventEmitter": "^1.0.0",
+    "react-native-console-time-polyfill": "^0.0.6",
+    "text-encoding": "^0.6.4",
+    "xmldom-qsa": "^1.0.3"
+  }
+}
