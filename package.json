@@ -1,12 +1,13 @@
 {
   "name": "@expo/browser-polyfill",
   "version": "0.0.0-alpha.0",
-  "description": "Browser polyfill for React Native - very beta",
+  "description":
+    "Browser polyfill for making React Native compatible with web libs like pixi.js, three.js, phaser.js",
   "files": ["lib"],
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/expo/expo-browser-polyfill.git"
+    "url": "https://github.com/expo/browser-polyfill.git"
   },
   "keywords": [
     "expo",
