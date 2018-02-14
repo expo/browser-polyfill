@@ -16,7 +16,7 @@ yarn add @expo/browser-polyfill
 
 Import the library into your JavaScript file:
 
-```bash
+```js
 import '@expo/browser-polyfill';
 ```
 
