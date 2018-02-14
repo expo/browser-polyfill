@@ -1,10 +1,11 @@
 {
   "name": "@expo/browser-polyfill",
-  "version": "0.0.0-alpha.0",
+  "version": "0.0.0-alpha.1",
   "private": false,
-  "description":
-    "Browser polyfill for making React Native compatible with web libs like pixi.js, three.js, phaser.js",
-  "files": ["lib"],
+  "description": "Browser polyfill for making React Native compatible with web libs like pixi.js, three.js, phaser.js",
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -29,12 +30,18 @@
   "devDependencies": {
     "expo": "^25.0.0",
     "react": "16.0.0",
-    "react-native":
-      "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz"
+    "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz"
   },
   "dependencies": {
     "EventEmitter": "^1.0.0",
+    "adaptive-bezier-curve": "1.0.3",
+    "adaptive-quadratic-curve": "1.0.2",
+    "color-parser": "0.1.0",
+    "earcut": "2.1.3",
+    "extrude-polyline": "1.0.6",
+    "gl-matrix": "2.4.0",
     "react-native-console-time-polyfill": "^0.0.6",
+    "string-format": "0.5.0",
     "text-encoding": "^0.6.4",
     "xmldom-qsa": "^1.0.3"
   }

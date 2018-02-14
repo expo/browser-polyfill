@@ -1,5 +1,6 @@
 import '@expo/browser-polyfill';
 
+import Expo from 'expo';
 import React from 'react';
 import { View, Text } from 'react-native';
 
@@ -24,6 +25,18 @@ const tests = {
   },
   window: () => {
     console.log('location: ', Object.keys(window.location));
+  },
+  correctElementsCreated: () => {
+    const { HTMLImageElement, HTMLVideoElement, HTMLCanvasElement } = global;
+    const types = [
+      { type: 'img', inst: HTMLImageElement },
+      { type: 'video', inst: HTMLVideoElement },
+      { type: 'canvas', inst: HTMLCanvasElement },
+    ];
+    types.forEach(item => {
+      const element = document.createElement(item.type);
+      console.log('type', item.type, element instanceof item.inst, element instanceof Number);
+    });
   },
   elements: () => {
     const { HTMLImageElement, Image, HTMLVideoElement, Video, HTMLCanvasElement, Canvas } = global;
@@ -62,6 +75,12 @@ const tests = {
     buffer += decoder.decode(data, { stream: true });
     console.log('TextDecoder buffer', buffer, ' from: ', Object.keys(data));
   },
+  context: () => {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    const webgl = canvas.getContext('webgl');
+    console.log(context, webgl);
+  },
   domParser: () => {
     console.log('window.DOMParser: ', !!window.DOMParser);
     const parser = new window.DOMParser();
@@ -88,16 +107,13 @@ const tests = {
   },
 };
 
+const testGL = !Expo.Constants.isDevice;
 export default class App extends React.Component {
   componentWillMount() {
-    Object.keys(tests).forEach(key => {
-      try {
-        console.log('Run Test: ', key);
-        tests[key]();
-      } catch (error) {
-        console.error(`Error running ${key} test: `, error);
-      }
-    });
+    if (!testGL) {
+      this.runTests();
+    }
+
     window.addEventListener('resize', this.onLayout);
   }
 
@@ -109,10 +125,29 @@ export default class App extends React.Component {
     console.log('Update Layout:', window.innerWidth, window.innerHeight, window.devicePixelRatio);
   };
 
+  runTests = () => {
+    Object.keys(tests).forEach(key => {
+      try {
+        console.log('Run Test: ', key);
+        tests[key]();
+      } catch (error) {
+        console.error(`Error running ${key} test: `, error);
+      }
+    });
+  };
+
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>Check your console...</Text>
+        {testGL && (
+          <Expo.GLView
+            onContextCreate={context => {
+              global.__context = context;
+              this.runTests();
+            }}
+          />
+        )}
       </View>
     );
   }

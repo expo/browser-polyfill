@@ -5,7 +5,7 @@
   "author": "support@expo.io",
   "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
-    "@expo/browser-polyfill": "../../expo-browser-polyfill-v0.0.0-alpha.0.tgz",
+    "@expo/browser-polyfill": "../../expo-browser-polyfill-v0.0.0-alpha.1.tgz",
     "expo": "^25.0.0",
     "react": "16.0.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz"
