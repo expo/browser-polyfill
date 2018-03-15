@@ -1,4 +1,4 @@
-[![NPM](https://nodei.co/npm/expo-browser-polyfill.png)](https://nodei.co/npm/expo-browser-polyfill/)
+[![NPM](https://nodei.co/npm/@expo/browser-polyfill.png)](https://nodei.co/npm/@expo/browser-polyfill/)
 
 ---
 
