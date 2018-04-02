@@ -118,3 +118,28 @@ console.time(label);
 console.timeEnd(label);
 console.count(label);
 ```
+
+# Debug flags
+
+For debugging base64 image transformations toggle:
+
+```js
+global.__debug_browser_polyfill_image = true;
+```
+
+By default `global.__debug_browser_polyfill_image` is false.
+
+# _Bug_
+
+In V26 of Expo, MetroBundler has problems transforming `es2015` libs.
+We replaced `EventEmitter` -> `fbemitter`
+
+`gl-matrix` still has a problem so you will need to:
+
+```bash
+rm -rf node_modules/gl-matrix/.babelrc
+```
+
+You will need to do this after everytime you run `yarn` or reset the node_modules folder 😭
+Sorry for the inconvenience
+~@EvanBacon
