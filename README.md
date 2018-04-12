@@ -32,13 +32,14 @@ class Element
 class Document
 class HTMLImageElement
 class Image
+class ImageBitmap
 class HTMLVideoElement
 class Video
 class HTMLCanvasElement
 class Canvas
 ```
 
-### Image, HTMLImageElement
+### Image, HTMLImageElement, ImageBitmap
 
 Image has support for loading callbacks, however the loaded uri must be passed to the src already.
 

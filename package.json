@@ -1,6 +1,6 @@
 {
   "name": "@expo/browser-polyfill",
-  "version": "0.0.0-alpha.6",
+  "version": "0.0.0-alpha.7",
   "private": false,
   "description":
     "Browser polyfill for making React Native compatible with web libs like pixi.js, three.js, phaser.js",
