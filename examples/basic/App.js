@@ -27,11 +27,12 @@ const tests = {
     console.log('location: ', Object.keys(window.location));
   },
   correctElementsCreated: () => {
-    const { HTMLImageElement, HTMLVideoElement, HTMLCanvasElement } = global;
+    const { HTMLImageElement, ImageBitmap, HTMLVideoElement, HTMLCanvasElement } = global;
     const types = [
       { type: 'img', inst: HTMLImageElement },
       { type: 'video', inst: HTMLVideoElement },
       { type: 'canvas', inst: HTMLCanvasElement },
+      { type: 'img', inst: ImageBitmap },
     ];
     types.forEach(item => {
       const element = document.createElement(item.type);
@@ -39,10 +40,11 @@ const tests = {
     });
   },
   elements: () => {
-    const { HTMLImageElement, Image, HTMLVideoElement, Video, HTMLCanvasElement, Canvas } = global;
+    const { HTMLImageElement, Image, ImageBitmap, HTMLVideoElement, Video, HTMLCanvasElement, Canvas } = global;
     const elements = {
       HTMLImageElement,
       Image,
+      ImageBitmap,
       HTMLVideoElement,
       Video,
       HTMLCanvasElement,
