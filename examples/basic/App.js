@@ -4,6 +4,63 @@ import Expo from 'expo';
 import React from 'react';
 import { View, Text } from 'react-native';
 
+/*
+ Issue: https://github.com/expo/browser-polyfill/issues/2
+ Firebase doesn't work with this lib.
+ Adding it here to test.
+*/
+const firebase = require('firebase');
+// Required for side-effects
+require('firebase/firestore');
+
+function setupFirebase() {
+  var config = {
+    apiKey: 'AIzaSyAfgPq82VdNqEZ8hqnOvYdD7kSPiFK9W1k',
+    authDomain: 'keira-knightley-51df6.firebaseapp.com',
+    databaseURL: 'https://keira-knightley-51df6.firebaseio.com',
+    projectId: 'keira-knightley-51df6',
+    storageBucket: 'keira-knightley-51df6.appspot.com',
+    messagingSenderId: '628588079444',
+  };
+  firebase.initializeApp(config);
+
+  const onAuthStateChanged = async user => {
+    if (!user) {
+      try {
+        firebase.auth().signInAnonymously();
+      } catch ({ message }) {
+        alert(message);
+      }
+    } else {
+      console.log('signed in');
+
+      const getUser = () => {
+        return new Promise((res, rej) => {
+          firebase
+            .firestore()
+            .collection('browser_test')
+            .get()
+            .then(doc => {
+              if (!doc.exists) {
+                console.log('No such document!');
+              } else {
+                console.log('Document data:', doc.data());
+                // this.userData = doc.data();
+              }
+            })
+            .catch(error => {
+              console.error('firebase error:', error);
+            });
+        });
+      };
+
+      getUser();
+    }
+  };
+
+  firebase.auth().onAuthStateChanged(onAuthStateChanged);
+}
+
 const tests = {
   timer: () => {
     const tag = 'test-timer';
@@ -40,7 +97,15 @@ const tests = {
     });
   },
   elements: () => {
-    const { HTMLImageElement, Image, ImageBitmap, HTMLVideoElement, Video, HTMLCanvasElement, Canvas } = global;
+    const {
+      HTMLImageElement,
+      Image,
+      ImageBitmap,
+      HTMLVideoElement,
+      Video,
+      HTMLCanvasElement,
+      Canvas,
+    } = global;
     const elements = {
       HTMLImageElement,
       Image,
@@ -115,6 +180,7 @@ export default class App extends React.Component {
     if (!testGL) {
       this.runTests();
     }
+    setupFirebase();
 
     window.addEventListener('resize', this.onLayout);
   }
