@@ -4,13 +4,19 @@
   "description": "browser-polyfill example",
   "author": "support@expo.io",
   "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "fix": "rm -rf node_modules/gl-matrix/.babelrc"
+  },
   "dependencies": {
-    "@expo/browser-polyfill": "../../expo-browser-polyfill-v0.0.0-alpha.6.tgz",
+    "@expo/browser-polyfill": "../../expo-browser-polyfill-v0.0.0-alpha.8.tgz",
     "expo": "^26.0.0",
-    "react": "16.3.0-alpha.1",
+    "firebase": "^4.12.1",
+    "react": "16.3.2",
     "react-native": "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz"
   },
   "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "eslint": "^4.9.0",
     "eslint-config-universe": "^1.0.6",
     "prettier": "^1.7.4"
