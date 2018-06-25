@@ -198,19 +198,19 @@ const tests = {
   },
 };
 
-const testGL = false; //!Expo.Constants.isDevice;
+const testGL = !Expo.Constants.isDevice;
 export default class App extends React.Component {
   componentWillMount() {
     if (!testGL) {
-      // this.runTests();
+      this.runTests();
     }
     setupFirebase();
 
-    // window.addEventListener('resize', this.onLayout);
+    window.addEventListener('resize', this.onLayout);
   }
 
   componentWillUnmount() {
-    // window.removeEventListener('resize', this.onLayout);
+    window.removeEventListener('resize', this.onLayout);
   }
 
   onLayout = () => {
