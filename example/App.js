@@ -25,6 +25,9 @@ function setupFirebase() {
   firebase.initializeApp(config);
 
   const onAuthStateChanged = async user => {
+    // firebase.database().forceDisallow();
+    // console.log(firebase.database());
+    // return;
     if (!user) {
       try {
         firebase.auth().signInAnonymously();
@@ -39,10 +42,20 @@ function setupFirebase() {
           firebase
             .firestore()
             .collection('browser_test')
+            .doc('LA')
             .get()
             .then(doc => {
               if (!doc.exists) {
                 console.log('No such document!');
+                firebase
+                  .firestore()
+                  .collection('browser_test')
+                  .doc('LA')
+                  .set({
+                    name: 'Los Angeles',
+                    state: 'CA',
+                    country: 'USA',
+                  });
               } else {
                 console.log('Document data:', doc.data());
                 // this.userData = doc.data();
@@ -53,6 +66,17 @@ function setupFirebase() {
             });
         });
       };
+
+      const testRef = firebase.database().ref('/test_data');
+      try {
+        const snapshot = await testRef.once('value');
+
+        const key = snapshot.key;
+        const value = snapshot.val();
+        console.log('Firebase Database: ', { key, value });
+      } catch ({ message }) {
+        console.error('Error: Firebase Database: ', message);
+      }
 
       getUser();
     }
@@ -174,19 +198,19 @@ const tests = {
   },
 };
 
-const testGL = !Expo.Constants.isDevice;
+const testGL = false; //!Expo.Constants.isDevice;
 export default class App extends React.Component {
   componentWillMount() {
     if (!testGL) {
-      this.runTests();
+      // this.runTests();
     }
     setupFirebase();
 
-    window.addEventListener('resize', this.onLayout);
+    // window.addEventListener('resize', this.onLayout);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.onLayout);
+    // window.removeEventListener('resize', this.onLayout);
   }
 
   onLayout = () => {
