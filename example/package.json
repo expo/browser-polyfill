@@ -13,12 +13,5 @@
     "firebase": "^5.1.0",
     "react": "16.4.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-28.0.0.tar.gz"
-  },
-  "devDependencies": {
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
-    "eslint": "^5.0.0",
-    "eslint-config-universe": "^1.0.6",
-    "prettier": "^1.7.4"
   }
 }
