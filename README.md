@@ -135,12 +135,6 @@ By default `global.__debug_browser_polyfill_image` is false.
 In V26 of Expo, MetroBundler has problems transforming `es2015` libs.
 We replaced `EventEmitter` -> `fbemitter`
 
-`gl-matrix` still has a problem so you will need to:
+`gl-matrix` still has a problem so we have a postinstall script that removes all the `.babelrc` files. This is a **`0.0.0-alpha.10`** and greater feature.
 
-```bash
-rm -rf node_modules/gl-matrix/.babelrc
-```
-
-You will need to do this after everytime you run `yarn` or reset the node_modules folder 😭
-Sorry for the inconvenience
 ~@EvanBacon
