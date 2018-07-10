@@ -8,7 +8,7 @@
     "fix": "rm -rf node_modules/gl-matrix/.babelrc"
   },
   "dependencies": {
-    "@expo/browser-polyfill": "../expo-browser-polyfill-v0.0.0-alpha.9.tgz",
+    "@expo/browser-polyfill": "../expo-browser-polyfill-v0.0.0-alpha.10.tgz",
     "expo": "^28.0.0",
     "firebase": "^5.1.0",
     "react": "16.4.1",
