@@ -1,15 +1,11 @@
 {
   "name": "@expo/browser-polyfill",
-  "version": "0.0.0-alpha.10",
-  "private": false,
+  "version": "0.0.1-alpha.0",
   "description": "Browser polyfill for making React Native compatible with web libs like pixi.js, three.js, phaser.js",
-  "files": [
-    "lib"
-  ],
-  "scripts": {
-    "postinstall": "find ../ -name .babelrc -delete"
+  "homepage": "https://github.com/expo/browser-polyfill#readme",
+  "bugs": {
+    "url": "https://github.com/expo/browser-polyfill/issues"
   },
-  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/expo/browser-polyfill.git"
@@ -25,12 +21,57 @@
     "document",
     "shim"
   ],
-  "author": "Evan Bacon",
+  "private": false,
+  "author": {
+    "email": "bacon@expo.io",
+    "name": "Evan Bacon"
+  },
   "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "pre-push": [
+    "lint"
+  ],
+  "directories": {
+    "example": "examples",
+    "lib": "src"
+  },
+  "eslintConfig": {
+    "extends": "universe/native"
+  },
+  "readmeFilename": "README.md",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "prepare": "npm run build",
+    "prepush": "npm run lint",
+    "lint:example": "eslint example/",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "sync-example": "npm run build && rsync -rv dist example/node_modules/@expo/browser-polyfill && rsync -rv package.json example/node_modules/@expo/browser-polyfill && rm -rf example/node_modules/gl-matrix/.babelrc",
+    "postinstall": "rm -rf ../../gl-matrix/.babelrc"
+  },
   "peerDependencies": {
     "expo": "^28.0.0",
-    "react": "16.3.0",
+    "react": "^16.3.0",
     "react-native": "*"
+  },
+  "devDependencies": {
+    "babel-preset-expo": "^4.0.0",
+    "eslint": "^5.1.0",
+    "eslint-config-universe": "^1.0.6",
+    "eslint-plugin-jest": "^21.2.0",
+    "husky": "^0.14.3",
+    "jest": "^23.4.1",
+    "jest-expo": "^29.0.0",
+    "prettier": "^1.7.4",
+    "rollup": "0.63.4",
+    "rollup-plugin-commonjs": "9.1.4",
+    "rollup-plugin-flow": "^1.1.1",
+    "rollup-plugin-node-resolve": "3.3.0",
+    "rollup-plugin-typescript2": "0.16.1"
   },
   "dependencies": {
     "gl-matrix": "2.6.1",

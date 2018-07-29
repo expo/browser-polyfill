@@ -11,8 +11,6 @@ class HTMLImageElement extends Element {
     this._load();
   }
 
-  _onload = () => {};
-
   get onload() {
     return this._onload;
   }
@@ -33,6 +31,8 @@ class HTMLImageElement extends Element {
 
   constructor(props) {
     super('img');
+    this._load = this._load.bind(this);
+    this._onload = () => {};
     if (props !== null && typeof props === 'object') {
       const { localUri, width, height } = props || {};
       this.src = localUri;
@@ -42,7 +42,7 @@ class HTMLImageElement extends Element {
     }
   }
 
-  _load = () => {
+  _load() {
     if (this.src) {
       if (this.src.startsWith && this.src.startsWith('data:')) {
         // is base64 - convert and try again;
@@ -60,7 +60,7 @@ class HTMLImageElement extends Element {
               console.log(`@expo/browser-polyfill: Error:`, error.message);
             }
             this.emitter.emit('error', { target: this, error });
-          },
+          }
         );
         return;
       }
@@ -76,12 +76,12 @@ class HTMLImageElement extends Element {
           },
           error => {
             this.emitter.emit('error', { target: this });
-          },
+          }
         );
       } else {
         this.complete = true;
       }
     }
-  };
+  }
 }
 export default HTMLImageElement;
