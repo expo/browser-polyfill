@@ -63,12 +63,6 @@ class Element extends Node {
       }),
       putImageData: () => ({}),
       createImageData: () => ({}),
-      getContextAttributes: () => ({
-        stencil: true,
-      }),
-      getExtension: () => ({
-        loseContext: () => ({}),
-      }),
     };
   }
 

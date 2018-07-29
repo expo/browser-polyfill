@@ -23,6 +23,7 @@ function setupFirebase() {
     messagingSenderId: '628588079444',
   };
   firebase.initializeApp(config);
+  firebase.firestore().settings({ timestampsInSnapshots: true });
 
   const onAuthStateChanged = async user => {
     // firebase.database().forceDisallow();

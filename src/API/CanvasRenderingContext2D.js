@@ -206,7 +206,7 @@ const patternShaderTxt = {
             }
         }
     `,
-    patternShaderRepeatValues,
+    patternShaderRepeatValues
   ),
   frag: stringFormat(
     `
@@ -237,24 +237,19 @@ const patternShaderTxt = {
             }
         }
     `,
-    patternShaderRepeatValues,
+    patternShaderRepeatValues
   ),
 };
 
 function cssToGlColor(cssStr) {
-  parsedColor = parseColor(cssStr);
+  let parsedColor = parseColor(cssStr);
   if (!parsedColor) {
     throw new SyntaxError('Bad color value');
   }
   if (!('a' in parsedColor)) {
     parsedColor['a'] = 1.0;
   }
-  return [
-    parsedColor['r'] / 255,
-    parsedColor['g'] / 255,
-    parsedColor['b'] / 255,
-    parsedColor['a'],
-  ];
+  return [parsedColor['r'] / 255, parsedColor['g'] / 255, parsedColor['b'] / 255, parsedColor['a']];
 }
 
 function circleMod(rad) {
@@ -292,43 +287,35 @@ export default class Expo2DContext {
       return null;
     }
 
-    shaderProgram = gl.createProgram();
+    let shaderProgram = gl.createProgram();
     gl.attachShader(shaderProgram, vertShader);
     gl.attachShader(shaderProgram, fragShader);
     gl.linkProgram(shaderProgram);
 
     if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-      alert(
-        'Error linking shader program: ' + gl.getProgramInfoLog(shaderProgram),
-      );
+      alert('Error linking shader program: ' + gl.getProgramInfoLog(shaderProgram));
       return null;
     }
 
     gl.useProgram(shaderProgram);
 
     shaderProgram.attributes = {};
-    nAttributes = gl.getProgramParameter(shaderProgram, gl.ACTIVE_ATTRIBUTES);
-    names = [];
-    for (i = 0; i < nAttributes; i++) {
-      attr = gl.getActiveAttrib(shaderProgram, i);
+    let nAttributes = gl.getProgramParameter(shaderProgram, gl.ACTIVE_ATTRIBUTES);
+    let names = [];
+    for (let i = 0; i < nAttributes; i++) {
+      let attr = gl.getActiveAttrib(shaderProgram, i);
       names.push(attr.name);
-      shaderProgram.attributes[attr.name] = gl.getAttribLocation(
-        shaderProgram,
-        attr.name,
-      );
+      shaderProgram.attributes[attr.name] = gl.getAttribLocation(shaderProgram, attr.name);
       gl.enableVertexAttribArray(shaderProgram.attributes[attr.name]);
     }
 
     shaderProgram.uniforms = {};
-    nUniforms = gl.getProgramParameter(shaderProgram, gl.ACTIVE_UNIFORMS);
+    let nUniforms = gl.getProgramParameter(shaderProgram, gl.ACTIVE_UNIFORMS);
     names = [];
-    for (i = 0; i < nUniforms; i++) {
-      uniform = gl.getActiveUniform(shaderProgram, i);
+    for (let i = 0; i < nUniforms; i++) {
+      let uniform = gl.getActiveUniform(shaderProgram, i);
       names.push(uniform.name);
-      shaderProgram.uniforms[uniform.name] = gl.getUniformLocation(
-        shaderProgram,
-        uniform.name,
-      );
+      shaderProgram.uniforms[uniform.name] = gl.getUniformLocation(shaderProgram, uniform.name);
     }
 
     return shaderProgram;
@@ -380,22 +367,14 @@ export default class Expo2DContext {
     let invMvMatrix = glm.mat4.create();
     glm.mat4.invert(invMvMatrix, this.drawingState.mvMatrix);
 
-    gl.uniformMatrix4fv(
-      this.activeShaderProgram.uniforms['uPMatrix'],
-      false,
-      this.pMatrix,
-    );
+    gl.uniformMatrix4fv(this.activeShaderProgram.uniforms['uPMatrix'], false, this.pMatrix);
     gl.uniformMatrix4fv(
       this.activeShaderProgram.uniforms['uMVMatrix'],
       false,
-      this.drawingState.mvMatrix,
+      this.drawingState.mvMatrix
     );
     if ('uiMVMatrix' in this.activeShaderProgram.uniforms) {
-      gl.uniformMatrix4fv(
-        this.activeShaderProgram.uniforms['uiMVMatrix'],
-        false,
-        invMvMatrix,
-      );
+      gl.uniformMatrix4fv(this.activeShaderProgram.uniforms['uiMVMatrix'], false, invMvMatrix);
     }
     gl.uniform1i(this.activeShaderProgram.uniforms['uSkipMVTransform'], false);
   }
@@ -413,14 +392,14 @@ export default class Expo2DContext {
    **************************************************/
 
   createImageData() {
-    if (arguments.length == 1) {
+    if (arguments.length === 1) {
       let oldData = arguments[0];
       return {
         width: oldData.width,
         height: oldData.height,
         data: new Uint8Array(oldData.data),
       };
-    } else if (arguments.length == 2) {
+    } else if (arguments.length === 2) {
       let sw = arguments[0];
       let sh = arguments[1];
       return {
@@ -446,7 +425,7 @@ export default class Expo2DContext {
       sh,
       this.gl.RGBA_INTEGER,
       this.gl.UNSIGNED_BYTE,
-      imageDataObj.data,
+      imageDataObj.data
     );
     return imageDataObj;
   }
@@ -507,7 +486,7 @@ export default class Expo2DContext {
       0,
       gl.RGBA,
       gl.UNSIGNED_BYTE,
-      imagedata.data,
+      imagedata.data
     );
 
     // TODO: figure out how to set these all correctly
@@ -541,17 +520,17 @@ export default class Expo2DContext {
     var sy = 0;
     var sw = 1;
     var sh = 1;
-    if (arguments.length == 3) {
+    if (arguments.length === 3) {
       var dx = arguments[1];
       var dy = arguments[2];
       var dw = asset.width;
       var dh = asset.height;
-    } else if (arguments.length == 5) {
+    } else if (arguments.length === 5) {
       var dx = arguments[1];
       var dy = arguments[2];
       var dw = arguments[3];
       var dh = arguments[4];
-    } else if (arguments.length == 9) {
+    } else if (arguments.length === 9) {
       sx = arguments[1] / asset.width;
       sy = arguments[2] / asset.height;
       sw = arguments[3] / asset.width;
@@ -564,7 +543,7 @@ export default class Expo2DContext {
       throw SyntaxError('Bad function signature');
     }
 
-    if (sw == 0 || sh == 0) {
+    if (sw === 0 || sh === 0) {
       return;
     }
 
@@ -573,10 +552,10 @@ export default class Expo2DContext {
     //  if we can't rely on that, we'll have to clip beforehand by messing
     //  with rectangle dimensions
 
-    dxmin = Math.min(dx, dx + dw);
-    dxmax = Math.max(dx, dx + dw);
-    dymin = Math.min(dy, dy + dh);
-    dymax = Math.max(dy, dy + dh);
+    let dxmin = Math.min(dx, dx + dw);
+    let dxmax = Math.max(dx, dx + dw);
+    let dymin = Math.min(dy, dy + dh);
+    let dymax = Math.max(dy, dy + dh);
 
     var vertices = [
       dxmin,
@@ -608,7 +587,7 @@ export default class Expo2DContext {
       gl.FLOAT,
       false,
       4 * 2 * 2,
-      0,
+      0
     );
     gl.vertexAttribPointer(
       this.activeShaderProgram.attributes['aTexCoord'],
@@ -616,7 +595,7 @@ export default class Expo2DContext {
       gl.FLOAT,
       false,
       4 * 2 * 2,
-      4 * 2,
+      4 * 2
     );
 
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
@@ -629,16 +608,9 @@ export default class Expo2DContext {
   clearRect(x, y, w, h) {
     let gl = this.gl;
 
-    if (
-      x <= 0.0 &&
-      y <= 0.0 &&
-      x + w >= gl.drawingBufferWidth &&
-      y + h >= gl.drawingBufferHeight
-    ) {
+    if (x <= 0.0 && y <= 0.0 && x + w >= gl.drawingBufferWidth && y + h >= gl.drawingBufferHeight) {
       this.gl.clear(
-        this.gl.COLOR_BUFFER_BIT |
-          this.gl.DEPTH_BUFFER_BIT |
-          this.gl.STENCIL_BUFFER_BIT,
+        this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT | this.gl.STENCIL_BUFFER_BIT
       );
     } else {
       var old_fill_style = this.drawingState.fillStyle;
@@ -668,7 +640,7 @@ export default class Expo2DContext {
       gl.FLOAT,
       false,
       0,
-      0,
+      0
     );
 
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
@@ -684,7 +656,7 @@ export default class Expo2DContext {
     var mesh = this.strokeExtruder.build(polyline);
 
     var vertices = [];
-    for (i = 0; i < mesh.cells.length; i++) {
+    for (let i = 0; i < mesh.cells.length; i++) {
       vertices.push(mesh.positions[mesh.cells[i][0]][0]);
       vertices.push(mesh.positions[mesh.cells[i][0]][1]);
       vertices.push(mesh.positions[mesh.cells[i][1]][0]);
@@ -701,7 +673,7 @@ export default class Expo2DContext {
       gl.FLOAT,
       false,
       0,
-      0,
+      0
     );
 
     gl.drawArrays(gl.TRIANGLES, 0, vertices.length / 2);
@@ -732,34 +704,30 @@ export default class Expo2DContext {
 
     gl.uniform1i(this.activeShaderProgram.uniforms['uSkipMVTransform'], true);
 
-    for (i = 0; i < this.subpaths.length; i++) {
+    for (let i = 0; i < this.subpaths.length; i++) {
       let subpath = this.subpaths[i];
 
-      if (subpath.length == 0) {
+      if (subpath.length === 0) {
         continue;
       }
 
       let triangles = earcut(subpath, null);
       let vertices = [];
 
-      for (j = 0; j < triangles.length; j++) {
+      for (let j = 0; j < triangles.length; j++) {
         vertices.push(subpath[triangles[j] * 2]);
         vertices.push(subpath[triangles[j] * 2 + 1]);
       }
 
       gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexBuffer);
-      gl.bufferData(
-        gl.ARRAY_BUFFER,
-        new Float32Array(vertices),
-        gl.STATIC_DRAW,
-      );
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
       gl.vertexAttribPointer(
         this.activeShaderProgram.attributes['aVertexPosition'],
         2,
         gl.FLOAT,
         false,
         0,
-        0,
+        0
       );
       gl.drawArrays(gl.TRIANGLES, 0, triangles.length);
     }
@@ -774,10 +742,10 @@ export default class Expo2DContext {
 
     gl.uniform1i(this.activeShaderProgram.uniforms['uSkipMVTransform'], true);
 
-    for (i = 0; i < this.subpaths.length; i++) {
+    for (let i = 0; i < this.subpaths.length; i++) {
       let subpath = this.subpaths[i];
 
-      if (subpath.length == 0) {
+      if (subpath.length === 0) {
         continue;
       }
 
@@ -791,16 +759,16 @@ export default class Expo2DContext {
       let polyline = [];
       let lastPt = null;
       let pt = null;
-      for (j = 0; j < subpath.length; j += 2) {
+      for (let j = 0; j < subpath.length; j += 2) {
         lastPt = pt;
         pt = [subpath[j], subpath[j + 1]];
-        if (lastPt && lastPt[0] == pt[0] && lastPt[1] == pt[1]) continue;
+        if (lastPt && lastPt[0] === pt[0] && lastPt[1] === pt[1]) continue;
         polyline.push([subpath[j], subpath[j + 1]]);
       }
       let mesh = this.strokeExtruder.build(polyline);
 
       let vertices = [];
-      for (i = 0; i < mesh.cells.length; i++) {
+      for (let i = 0; i < mesh.cells.length; i++) {
         vertices.push(mesh.positions[mesh.cells[i][0]][0]);
         vertices.push(mesh.positions[mesh.cells[i][0]][1]);
         vertices.push(mesh.positions[mesh.cells[i][1]][0]);
@@ -810,18 +778,14 @@ export default class Expo2DContext {
       }
 
       gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexBuffer);
-      gl.bufferData(
-        gl.ARRAY_BUFFER,
-        new Float32Array(vertices),
-        gl.STATIC_DRAW,
-      );
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
       gl.vertexAttribPointer(
         this.activeShaderProgram.attributes['aVertexPosition'],
         2,
         gl.FLOAT,
         false,
         0,
-        0,
+        0
       );
       gl.drawArrays(gl.TRIANGLES, 0, vertices.length / 2);
     }
@@ -848,17 +812,14 @@ export default class Expo2DContext {
     // TODO: ensure start path?
     var scale = 1; // TODO: ??
     var vertsLen = this.currentSubpath.length;
-    var startPt = [
-      this.currentSubpath[vertsLen - 2],
-      this.currentSubpath[vertsLen - 1],
-    ];
+    var startPt = [this.currentSubpath[vertsLen - 2], this.currentSubpath[vertsLen - 1]];
     var points = bezierQuadraticPoints(
       startPt,
       this._getTransformedPt(cpx, cpy),
       this._getTransformedPt(x, y),
-      scale,
+      scale
     );
-    for (i = 0; i < points.length; i++) {
+    for (let i = 0; i < points.length; i++) {
       this.currentSubpath.push(points[i][0]);
       this.currentSubpath.push(points[i][1]);
     }
@@ -868,18 +829,15 @@ export default class Expo2DContext {
     // TODO: ensure start path?
     var scale = 1; // TODO: ??
     var vertsLen = this.currentSubpath.length;
-    var startPt = [
-      this.currentSubpath[vertsLen - 2],
-      this.currentSubpath[vertsLen - 1],
-    ];
+    var startPt = [this.currentSubpath[vertsLen - 2], this.currentSubpath[vertsLen - 1]];
     var points = bezierCubicPoints(
       startPt,
       this._getTransformedPt(cp1x, cp1y),
       this._getTransformedPt(cp2x, cp2y),
       this._getTransformedPt(x, y),
-      scale,
+      scale
     );
-    for (i = 0; i < points.length; i++) {
+    for (let i = 0; i < points.length; i++) {
       this.currentSubpath.push(points[i][0]);
       this.currentSubpath.push(points[i][1]);
     }
@@ -896,29 +854,23 @@ export default class Expo2DContext {
   arc(x, y, radius, startAngle, endAngle, counterclockwise) {
     // TODO: bounds check for radius?
     counterclockwise = counterclockwise || 0;
-    centerPt = [x, y];
+    let centerPt = [x, y];
 
     // TODO: increment shouldn't be constant when arc has been scaled
     // to be non-circular
     let increment = Math.PI / 2;
     while (true) {
       let pt1 = this._getTransformedPt(radius, 0);
-      let pt2 = this._getTransformedPt(
-        radius * Math.cos(increment),
-        radius * Math.sin(increment),
-      );
+      let pt2 = this._getTransformedPt(radius * Math.cos(increment), radius * Math.sin(increment));
 
       let accurate_midpt = this._getTransformedPt(
         radius * Math.cos(increment / 2),
-        radius * Math.sin(increment / 2),
+        radius * Math.sin(increment / 2)
       );
-      let actual_midpt = [
-        pt1[0] + (pt2[0] - pt1[0]) / 2,
-        pt1[1] + (pt2[1] - pt1[1]) / 2,
-      ];
+      let actual_midpt = [pt1[0] + (pt2[0] - pt1[0]) / 2, pt1[1] + (pt2[1] - pt1[1]) / 2];
       let error = Math.sqrt(
         Math.pow(actual_midpt[0] - accurate_midpt[0], 2) +
-          Math.pow(actual_midpt[1] - accurate_midpt[1], 2),
+          Math.pow(actual_midpt[1] - accurate_midpt[1], 2)
       );
       if (error > 0.5) {
         increment /= 2;
@@ -931,7 +883,7 @@ export default class Expo2DContext {
     endAngle = circleMod(endAngle);
 
     if (counterclockwise) {
-      temp = startAngle;
+      let temp = startAngle;
       startAngle = endAngle;
       endAngle = temp;
     }
@@ -940,12 +892,12 @@ export default class Expo2DContext {
     while (true) {
       let arcPt = this._getTransformedPt(
         centerPt[0] + radius * Math.cos(theta),
-        centerPt[1] + radius * Math.sin(theta),
+        centerPt[1] + radius * Math.sin(theta)
       );
       this.currentSubpath.push(arcPt[0]);
       this.currentSubpath.push(arcPt[1]);
 
-      old_theta = theta;
+      let old_theta = theta;
       theta += increment;
       theta = circleMod(theta);
       if (theta < old_theta) {
@@ -958,7 +910,7 @@ export default class Expo2DContext {
 
     let arcPt = this._getTransformedPt(
       centerPt[0] + radius * Math.cos(endAngle),
-      centerPt[1] + radius * Math.sin(endAngle),
+      centerPt[1] + radius * Math.sin(endAngle)
     );
     this.currentSubpath.push(arcPt[0]);
     this.currentSubpath.push(arcPt[1]);
@@ -979,9 +931,7 @@ export default class Expo2DContext {
     this.drawingState.strokeDashes = this.drawingState.strokeDashes.slice();
     this.drawingState.mvMatrix = glm.mat4.clone(this.drawingState.mvMatrix);
     this.drawingState.fillStyle = this._cloneStyle(this.drawingState.fillStyle);
-    this.drawingState.strokeStyle = this._cloneStyle(
-      this.drawingState.strokeStyle,
-    );
+    this.drawingState.strokeStyle = this._cloneStyle(this.drawingState.strokeStyle);
   }
 
   restore() {
@@ -991,38 +941,23 @@ export default class Expo2DContext {
   }
 
   scale(x, y) {
-    glm.mat4.scale(this.drawingState.mvMatrix, this.drawingState.mvMatrix, [
-      x,
-      y,
-      1.0,
-    ]);
+    glm.mat4.scale(this.drawingState.mvMatrix, this.drawingState.mvMatrix, [x, y, 1.0]);
     this._updateMatrixUniforms(); // TODO: batch this somehow
   }
 
   rotate(angle) {
-    glm.mat4.rotateZ(
-      this.drawingState.mvMatrix,
-      this.drawingState.mvMatrix,
-      angle,
-    );
+    glm.mat4.rotateZ(this.drawingState.mvMatrix, this.drawingState.mvMatrix, angle);
     this._updateMatrixUniforms(); // TODO: batch this somehow
   }
 
   translate(x, y) {
-    glm.mat4.translate(this.drawingState.mvMatrix, this.drawingState.mvMatrix, [
-      x,
-      y,
-      0.0,
-    ]);
+    glm.mat4.translate(this.drawingState.mvMatrix, this.drawingState.mvMatrix, [x, y, 0.0]);
     this._updateMatrixUniforms(); // TODO: batch this somehow
   }
 
   transform(a, b, c, d, e, f) {
     // TODO: is this the right mult order?
-    glm.mat4.multiply(
-      this.drawingState.mvMatrix,
-      glm.mat4.fromValues(a, b, 0, c, d, 0, e, f, 1),
-    );
+    glm.mat4.multiply(this.drawingState.mvMatrix, glm.mat4.fromValues(a, b, 0, c, d, 0, e, f, 1));
     this._updateMatrixUniforms(); // TODO: batch this somehow
   }
 
@@ -1047,7 +982,7 @@ export default class Expo2DContext {
     this.drawingState.globalAlpha = val;
     this.gl.uniform1f(
       this.activeShaderProgram.uniforms['uGlobalAlpha'],
-      this.drawingState.globalAlpha,
+      this.drawingState.globalAlpha
     );
   }
   get globalAlpha() {
@@ -1061,6 +996,7 @@ export default class Expo2DContext {
     // throw SyntaxError("Property not supported");
   }
   get globalCompositeOperation() {
+    return null;
     // throw SyntaxError("Property not supported");
   }
   // set globalCompositeOperation(val) {
@@ -1177,13 +1113,10 @@ export default class Expo2DContext {
 
     if (typeof val === 'string') {
       this._setShaderProgram(this.flatShaderProgram);
-      gl.uniform4fv(
-        this.activeShaderProgram.uniforms['uColor'],
-        cssToGlColor(val),
-      );
+      gl.uniform4fv(this.activeShaderProgram.uniforms['uColor'], cssToGlColor(val));
       gl.uniform1f(
         this.activeShaderProgram.uniforms['uGlobalAlpha'],
-        this.drawingState.globalAlpha,
+        this.drawingState.globalAlpha
       );
     } else if (val && typeof val === 'object' && 'gradient' in val) {
       if (val.stops.length > this.maxGradStops) {
@@ -1209,25 +1142,19 @@ export default class Expo2DContext {
       sortedStops.sort(function(a, b) {
         return a[1] - b[1];
       });
-      for (i = 0; i < sortedStops.length; i++) {
+      for (let i = 0; i < sortedStops.length; i++) {
         color_arr = color_arr.concat(sortedStops[i][0]);
         offset_arr.push(sortedStops[i][1]);
       }
       offset_arr.push(-1.0);
 
       // TODO: can we rely on uniform arrays always ending up with [0] in their retrieved names across all platforms?
-      gl.uniform4fv(
-        this.activeShaderProgram.uniforms['colors[0]'],
-        new Float32Array(color_arr),
-      );
-      gl.uniform1fv(
-        this.activeShaderProgram.uniforms['offsets[0]'],
-        new Float32Array(offset_arr),
-      );
+      gl.uniform4fv(this.activeShaderProgram.uniforms['colors[0]'], new Float32Array(color_arr));
+      gl.uniform1fv(this.activeShaderProgram.uniforms['offsets[0]'], new Float32Array(offset_arr));
 
       gl.uniform1f(
         this.activeShaderProgram.uniforms['uGlobalAlpha'],
-        this.drawingState.globalAlpha,
+        this.drawingState.globalAlpha
       );
     } else if (val && typeof val === 'object' && 'pattern' in val) {
       this._setShaderProgram(this.patternShaderProgram);
@@ -1248,22 +1175,22 @@ export default class Expo2DContext {
         0,
         gl.RGBA,
         gl.UNSIGNED_BYTE,
-        val.pattern,
+        val.pattern
       );
       gl.uniform2f(
         this.activeShaderProgram.uniforms['uTextureSize'],
         val.pattern.width,
-        val.pattern.height,
+        val.pattern.height
       );
       gl.uniform1i(this.activeShaderProgram.uniforms['uTexture'], texture);
       gl.uniform1i(
         this.activeShaderProgram.uniforms['uRepeatMode'],
-        patternShaderRepeatValues[val.repeat],
+        patternShaderRepeatValues[val.repeat]
       );
 
       gl.uniform1f(
         this.activeShaderProgram.uniforms['uGlobalAlpha'],
-        this.drawingState.globalAlpha,
+        this.drawingState.globalAlpha
       );
     } else {
       throw SyntaxError('Bad color value');
@@ -1279,7 +1206,7 @@ export default class Expo2DContext {
 
   createRadialGradient(x0, y0, r0, x1, y1, r1) {
     if (r0 < 0 || r1 < 0) {
-      throw new IndexSizeError('Bad radius');
+      throw new Error('Bad radius');
     }
     var gradObj = this._createGradient('radial');
     gradObj.p0 = [x0, y0];
@@ -1293,13 +1220,13 @@ export default class Expo2DContext {
     var gradObj = {
       gradient: type,
       stops: [],
-      addColorStop: function(offset, color) {
-        parsedColor = parseColor(color);
+      addColorStop(offset, color) {
+        let parsedColor = parseColor(color);
         if (!parsedColor) {
           throw new SyntaxError('Bad color value');
         }
         if (offset < 0 || offset > 1) {
-          throw new IndexSizeError('Bad offset');
+          throw new Error('Bad offset');
         }
         this.stops.push([cssToGlColor(color), offset]);
       },
@@ -1326,7 +1253,7 @@ export default class Expo2DContext {
     }
     var patternObj = {
       pattern: asset,
-      repeat: repeat,
+      repeat,
     };
     return patternObj;
   }
@@ -1353,28 +1280,25 @@ export default class Expo2DContext {
 
     this.gl = gl;
     this.activeShaderProgram = null;
-    this.flatShaderProgram = this.initShaderProgram(
-      flatShaderTxt['vert'],
-      flatShaderTxt['frag'],
-    );
+    this.flatShaderProgram = this.initShaderProgram(flatShaderTxt['vert'], flatShaderTxt['frag']);
 
     this.linearGradShaderProgram = this.initShaderProgram(
       linearGradShaderTxt['vert'],
       stringFormat(linearGradShaderTxt['frag'], {
         maxGradStops: this.maxGradStops,
-      }),
+      })
     );
 
     this.radialGradShaderProgram = this.initShaderProgram(
       radialGradShaderTxt['vert'],
       stringFormat(radialGradShaderTxt['frag'], {
         maxGradStops: this.maxGradStops,
-      }),
+      })
     );
 
     this.patternShaderProgram = this.initShaderProgram(
       patternShaderTxt['vert'],
-      patternShaderTxt['frag'],
+      patternShaderTxt['frag']
     );
 
     this.initDrawingState();
@@ -1388,23 +1312,11 @@ export default class Expo2DContext {
     gl.clearColor(0, 0, 0, 0.0);
     gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
 
-    glm.mat4.ortho(
-      this.pMatrix,
-      0,
-      gl.drawingBufferWidth,
-      gl.drawingBufferHeight,
-      0,
-      -1,
-      1,
-    );
+    glm.mat4.ortho(this.pMatrix, 0, gl.drawingBufferWidth, gl.drawingBufferHeight, 0, -1, 1);
     glm.mat4.identity(this.drawingState.mvMatrix);
     this._updateMatrixUniforms();
 
-    this.gl.clear(
-      this.gl.COLOR_BUFFER_BIT |
-        this.gl.DEPTH_BUFFER_BIT |
-        this.gl.STENCIL_BUFFER_BIT,
-    );
+    this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT | this.gl.STENCIL_BUFFER_BIT);
   }
 
   flush() {

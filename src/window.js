@@ -1,4 +1,5 @@
 import { EventEmitter } from 'fbemitter';
+import { TextDecoder, TextEncoder } from 'text-encoding';
 import Document from './DOM/Document';
 
 import HTMLImageElement from './DOM/HTMLImageElement';
@@ -13,8 +14,7 @@ global.HTMLVideoElement = global.HTMLVideoElement || HTMLVideoElement;
 global.Video = global.Video || HTMLVideoElement;
 global.HTMLCanvasElement = global.HTMLCanvasElement || HTMLCanvasElement;
 global.Canvas = global.Canvas || HTMLCanvasElement;
-global.CanvasRenderingContext2D =
-  global.CanvasRenderingContext2D || CanvasRenderingContext2D;
+global.CanvasRenderingContext2D = global.CanvasRenderingContext2D || CanvasRenderingContext2D;
 global.WebGLRenderingContext = global.WebGLRenderingContext || function() {};
 
 window.performance = window.performance || {
@@ -26,11 +26,7 @@ window.performance = window.performance || {
 function checkEmitter() {
   if (
     !window.emitter ||
-    !(
-      window.emitter.on ||
-      window.emitter.addEventListener ||
-      window.emitter.addListener
-    )
+    !(window.emitter.on || window.emitter.addEventListener || window.emitter.addListener)
   ) {
     window.emitter = new EventEmitter();
   }
@@ -73,8 +69,6 @@ window.removeEventListener = (eventName, listener) => {
 };
 
 window.DOMParser = window.DOMParser || require('xmldom-qsa').DOMParser;
-
-import { TextDecoder, TextEncoder } from 'text-encoding';
 global.TextDecoder = global.TextDecoder || TextDecoder;
 global.TextEncoder = global.TextEncoder || TextEncoder;
 

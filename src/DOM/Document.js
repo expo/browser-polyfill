@@ -4,11 +4,10 @@ import HTMLImageElement from './HTMLImageElement';
 import HTMLCanvasElement from './HTMLCanvasElement';
 
 class Document extends Element {
-  body = new Element('BODY');
-  documentElement = new Element('HTML');
-
   constructor() {
     super('#document');
+    this.body = new Element('BODY');
+    this.documentElement = new Element('HTML');
     this.readyState = 'complete';
   }
 
