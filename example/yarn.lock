@@ -510,7 +510,7 @@
     lodash "^4.17.5"
     to-fast-properties "^2.0.0"
 
-"@expo/browser-polyfill@0.0.0-alpha.11":
+"@expo/browser-polyfill@0.0.0-alpha.10":
   version "0.0.0-alpha.10"
   resolved "https://registry.yarnpkg.com/@expo/browser-polyfill/-/browser-polyfill-0.0.0-alpha.10.tgz#5647e0ef05a0a188cc16ff190b2a63912e13b57d"
   dependencies:
