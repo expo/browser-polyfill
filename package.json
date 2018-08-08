@@ -1,6 +1,6 @@
 {
   "name": "@expo/browser-polyfill",
-  "version": "0.0.1-alpha.1",
+  "version": "0.0.1-alpha.2",
   "description": "Browser polyfill for making React Native compatible with web libs like pixi.js, three.js, phaser.js",
   "homepage": "https://github.com/expo/browser-polyfill#readme",
   "bugs": {
@@ -50,8 +50,8 @@
     "lint:example": "eslint example/",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
-    "sync-example": "npm run build && rsync -rv dist example/node_modules/@expo/browser-polyfill && rsync -rv package.json example/node_modules/@expo/browser-polyfill && rimraf example/node_modules/gl-matrix/.babelrc",
-    "postinstall": "rimraf ../../gl-matrix/.babelrc"
+    "sync-example": "npm run build && rsync -rv dist example/node_modules/@expo/browser-polyfill && rsync -rv package.json example/node_modules/@expo/browser-polyfill && node example/node_modules/@expo/browser-polyfill/postinstall.js",
+    "postinstall": "node postinstall.js"
   },
   "peerDependencies": {
     "expo": "^28.0.0",
@@ -67,7 +67,6 @@
     "jest": "^23.4.1",
     "jest-expo": "^29.0.0",
     "prettier": "^1.7.4",
-    "rimraf": "^2.6.2",
     "rollup": "0.63.4",
     "rollup-plugin-commonjs": "9.1.4",
     "rollup-plugin-flow": "^1.1.1",
@@ -75,6 +74,7 @@
     "rollup-plugin-typescript2": "0.16.1"
   },
   "dependencies": {
+    "rimraf": "^2.6.2",
     "adaptive-bezier-curve": "1.0.3",
     "adaptive-quadratic-curve": "1.0.2",
     "color-parser": "0.1.0",
