@@ -1,5 +1,5 @@
 import React from 'react';
-import * as glm from 'gl-matrix';
+import * as glm from '../lib/gl-matrix-min';
 
 var parseColor = require('color-parser');
 var stringFormat = require('string-format');
