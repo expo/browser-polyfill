@@ -1,10 +1,6 @@
-[![NPM](https://nodei.co/npm/@expo/browser-polyfill.png)](https://nodei.co/npm/@expo/browser-polyfill/)
-
----
-
 # @expo/browser-polyfill
 
-Browser polyfill for React Native - very beta feel free to contribute 😁💙
+Browser polyfill for React Native
 
 ### Installation
 
@@ -129,12 +125,3 @@ global.__debug_browser_polyfill_image = true;
 ```
 
 By default `global.__debug_browser_polyfill_image` is false.
-
-# _Bug_
-
-In V26 of Expo, MetroBundler has problems transforming `es2015` libs.
-We replaced `EventEmitter` -> `fbemitter`
-
-`gl-matrix` still has a problem so we have a postinstall script that removes all the `.babelrc` files. This is a **`0.0.0-alpha.10`** and greater feature.
-
-~@EvanBacon
