@@ -1,6 +1,8 @@
-import { Image, ImageStore } from 'react-native';
+import { Image } from 'react-native';
 import { FileSystem } from 'expo';
-const { writeAsStringAsync, documentDirectory, EncodingTypes } = FileSystem;
+const { writeAsStringAsync, documentDirectory } = FileSystem;
+const EncodingType = FileSystem.EncodingType || FileSystem.EncodingTypes;
+
 import uuidv1 from 'uuid/v1';
 
 import Element from './Element';
@@ -82,7 +84,7 @@ class HTMLImageElement extends Element {
             const MIME = getMIMEforBase64String(base64result);
             this.localUri = `${documentDirectory}${uuidv1()}-b64image.${MIME}`;
             await writeAsStringAsync(this.localUri, base64result, {
-              encoding: EncodingTypes.Base64,
+              encoding: EncodingType.Base64,
             });
             this._load();
           } catch (error) {

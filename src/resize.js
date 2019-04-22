@@ -1,9 +1,9 @@
-import { Dimensions, PixelRatio } from 'react-native';
-const { width, height } = Dimensions.get('window');
+import { Dimensions } from 'react-native';
+const { width, height, scale } = Dimensions.get('window');
 /*
  Window Resize Stub
 */
-window.devicePixelRatio = PixelRatio.get();
+window.devicePixelRatio = scale;
 window.innerWidth = width;
 window.clientWidth = width;
 window.innerHeight = height;
