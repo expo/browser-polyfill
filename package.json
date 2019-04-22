@@ -48,9 +48,9 @@
   },
   "peerDependencies": {
     "expo": "^32.0.6",
+    "expo-file-system": "*",
     "react": "^16.8.6",
-    "react-native": "*",
-    "expo-file-system": "*"
+    "react-native": "*"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.1.1",
@@ -63,14 +63,8 @@
     "prettier": "^1.17.0"
   },
   "dependencies": {
-    "adaptive-bezier-curve": "1.0.3",
-    "adaptive-quadratic-curve": "1.0.2",
-    "color-parser": "0.1.0",
-    "earcut": "2.1.5",
     "expo-2d-context": "^0.0.2",
-    "extrude-polyline": "1.0.6",
     "fbemitter": "^2.1.1",
-    "string-format": "2.0.0",
     "text-encoding": "^0.7.0",
     "xmldom-qsa": "^1.0.3"
   }

@@ -1,6 +1,6 @@
 import '@expo/browser-polyfill';
 
-import Expo from 'expo';
+import { Constants, Asset, FileSystem, GLView } from 'expo';
 import React from 'react';
 import { View, Text } from 'react-native';
 
@@ -23,7 +23,7 @@ function setupFirebase() {
     messagingSenderId: '628588079444',
   };
   firebase.initializeApp(config);
-  firebase.firestore().settings({ timestampsInSnapshots: true });
+  // firebase.firestore().settings({ timestampsInSnapshots: true });
 
   const onAuthStateChanged = async user => {
     // firebase.database().forceDisallow();
@@ -107,6 +107,30 @@ const tests = {
   },
   window: () => {
     console.log('location: ', Object.keys(window.location));
+  },
+  base64: async () => {
+    const asset = Asset.fromModule(require('./image.png'));
+    await asset.downloadAsync();
+    console.log('B64: ASSET:', asset.localUri);
+    const data = (await FileSystem.readAsStringAsync(asset.localUri, {
+      encoding: FileSystem.EncodingTypes.Base64,
+    })).trim();
+
+    global.__debug_browser_polyfill_image = true;
+    const pngPrefix = 'data:image/png;base64,';
+    // console.log('B64: DATA: ', pngPrefix + data);
+    const image = new global.HTMLImageElement();
+    image.addEventListener('loading', () => {
+      console.log('B64: Loading Image');
+    });
+    image.addEventListener('error', () => {
+      console.log('B64: Error Loading Image');
+    });
+    image.onload = () => {
+      const { src, width, height } = image;
+      console.log('B64: Loaded Image', { src, width, height });
+    };
+    image.src = pngPrefix + data;
   },
   correctElementsCreated: () => {
     const { HTMLImageElement, ImageBitmap, HTMLVideoElement, HTMLCanvasElement } = global;
@@ -199,7 +223,7 @@ const tests = {
   },
 };
 
-const testGL = !Expo.Constants.isDevice;
+const testGL = !Constants.isDevice;
 export default class App extends React.Component {
   componentWillMount() {
     if (!testGL) {
@@ -234,7 +258,7 @@ export default class App extends React.Component {
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>Check your console...</Text>
         {testGL && (
-          <Expo.GLView
+          <GLView
             onContextCreate={context => {
               global.__context = context;
               this.runTests();

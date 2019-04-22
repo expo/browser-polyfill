@@ -4,13 +4,12 @@
     "description": "browser-polyfill",
     "privacy": "public",
     "slug": "browser-polyfill",
-    "sdkVersion": "29.0.0",
+    "sdkVersion": "32.0.0",
     "version": "1.0.0",
     "primaryColor": "#cccccc",
     "icon": "https://d1wp6m56sqw74a.cloudfront.net/~assets/c9aa1be8a6a6fe81e20c3ac4106a2ebc",
-    "loading": {
-      "icon": "https://d1wp6m56sqw74a.cloudfront.net/~assets/c9aa1be8a6a6fe81e20c3ac4106a2ebc",
-      "hideExponentText": false
+    "splash": {
+      "image": "https://d1wp6m56sqw74a.cloudfront.net/~assets/c9aa1be8a6a6fe81e20c3ac4106a2ebc"
     },
     "ios": {
       "supportsTablet": true

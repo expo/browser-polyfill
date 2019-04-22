@@ -1,12 +1,35 @@
 import { Image, ImageStore } from 'react-native';
-import {
-  writeAsStringAsync,
-  documentDirectory,
-  EncodingTypes,
-} from 'expo-file-system';
+import { FileSystem } from 'expo';
+const { writeAsStringAsync, documentDirectory, EncodingTypes } = FileSystem;
 import uuidv1 from 'uuid/v1';
 
 import Element from './Element';
+
+const b64Extensions = {
+  '/' : 'jpg',
+  'i' : 'png',
+  'R' : 'gif',
+  'U' : 'webp',
+}
+
+function b64WithoutPrefix(b64) {
+  return b64.split(',')[1];
+}
+
+function getMIMEforBase64String(b64) {
+  let input = b64;
+  if (b64.includes(',')) {
+    input = b64WithoutPrefix(b64);
+  }
+  const first  = input.charAt(0);
+  const mime = b64Extensions[first];
+  if (!mime) {
+    throw new Error('Unknown Base64 MIME type: ', b64);
+  }
+  return mime;
+}
+
+
 class HTMLImageElement extends Element {
   get src() {
     return this.localUri;
@@ -50,13 +73,15 @@ class HTMLImageElement extends Element {
 
   _load() {
     if (this.src) {
-      if (this.src.startsWith && this.src.startsWith('data:')) {
+      if (typeof this.src === 'string' && this.src.startsWith && this.src.startsWith('data:')) {
         // is base64 - convert and try again;
         this._base64 = this.src;
+        const base64result = this.src.split(',')[1];
         (async () => {
           try {
-            this.src = `${documentDirectory}${uuidv1()}-b64image.png`;
-            await writeAsStringAsync(localUri, this._base64, {
+            const MIME = getMIMEforBase64String(base64result);
+            this.localUri = `${documentDirectory}${uuidv1()}-b64image.${MIME}`;
+            await writeAsStringAsync(this.localUri, base64result, {
               encoding: EncodingTypes.Base64,
             });
             this._load();

@@ -1,19 +1,34 @@
 {
   "name": "example",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "browser-polyfill example",
   "author": "support@expo.io",
   "main": "node_modules/expo/AppEntry.js",
   "dependencies": {
-    "@expo/browser-polyfill": "../expo-browser-polyfill-v0.0.1-alpha.3.tgz",
-    "expo": "^29.0.0",
-    "firebase": "^5.1.0",
-    "react": "16.4.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-29.0.0.tar.gz"
+    "@expo/browser-polyfill": "../expo-browser-polyfill-v0.0.1-alpha.4.tgz",
+    "expo": "^32.0.6",
+    "expo-2d-context": "^0.0.2",
+    "expo-file-system": "^4.0.0",
+    "firebase": "^5.10.0",
+    "react": "16.8.6",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "text-encoding": "^0.7.0",
+    "xmldom-qsa": "^1.0.3"
   },
   "devDependencies": {
-    "eslint": "^4.9.0",
-    "eslint-config-universe": "^1.0.6",
-    "prettier": "^1.7.4"
+    "@babel/plugin-proposal-class-properties": "^7.3.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.3.1",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/runtime": "^7.4.3",
+    "babel-loader": "^8.0.5",
+    "babel-plugin-module-resolver": "^3.1.1",
+    "babel-plugin-transform-react-jsx-source": "^6.22.0",
+    "babel-preset-expo": "^5.1.1",
+    "eslint": "^5.16.0",
+    "eslint-config-universe": "^1.0.7",
+    "prettier": "^1.17.0",
+    "schedule": "0.4.0"
   }
 }
