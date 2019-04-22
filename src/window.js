@@ -2,6 +2,8 @@ import { EventEmitter } from 'fbemitter';
 import { TextDecoder, TextEncoder } from 'text-encoding';
 import Document from './DOM/Document';
 
+import './performance';
+
 import HTMLImageElement from './DOM/HTMLImageElement';
 import HTMLCanvasElement from './DOM/HTMLCanvasElement';
 import HTMLVideoElement from './DOM/HTMLVideoElement';
@@ -16,12 +18,6 @@ global.HTMLCanvasElement = global.HTMLCanvasElement || HTMLCanvasElement;
 global.Canvas = global.Canvas || HTMLCanvasElement;
 global.CanvasRenderingContext2D = global.CanvasRenderingContext2D || CanvasRenderingContext2D;
 global.WebGLRenderingContext = global.WebGLRenderingContext || function() {};
-
-window.performance = window.performance || {
-  now: () => ({
-    bind: () => () => ({}),
-  }),
-};
 
 function checkEmitter() {
   if (
