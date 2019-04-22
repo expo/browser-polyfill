@@ -84,7 +84,7 @@ class HTMLImageElement extends Element {
             const MIME = getMIMEforBase64String(base64result);
             this.localUri = `${documentDirectory}${uuidv1()}-b64image.${MIME}`;
             await writeAsStringAsync(this.localUri, base64result, {
-              encoding: EncodingTypes.Base64,
+              encoding: EncodingType.Base64,
             });
             this._load();
           } catch (error) {
