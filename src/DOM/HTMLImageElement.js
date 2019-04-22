@@ -1,6 +1,35 @@
 import { Image, ImageStore } from 'react-native';
+import { FileSystem } from 'expo';
+const { writeAsStringAsync, documentDirectory, EncodingTypes } = FileSystem;
+import uuidv1 from 'uuid/v1';
 
 import Element from './Element';
+
+const b64Extensions = {
+  '/' : 'jpg',
+  'i' : 'png',
+  'R' : 'gif',
+  'U' : 'webp',
+}
+
+function b64WithoutPrefix(b64) {
+  return b64.split(',')[1];
+}
+
+function getMIMEforBase64String(b64) {
+  let input = b64;
+  if (b64.includes(',')) {
+    input = b64WithoutPrefix(b64);
+  }
+  const first  = input.charAt(0);
+  const mime = b64Extensions[first];
+  if (!mime) {
+    throw new Error('Unknown Base64 MIME type: ', b64);
+  }
+  return mime;
+}
+
+
 class HTMLImageElement extends Element {
   get src() {
     return this.localUri;
@@ -44,24 +73,25 @@ class HTMLImageElement extends Element {
 
   _load() {
     if (this.src) {
-      if (this.src.startsWith && this.src.startsWith('data:')) {
+      if (typeof this.src === 'string' && this.src.startsWith && this.src.startsWith('data:')) {
         // is base64 - convert and try again;
         this._base64 = this.src;
-        ImageStore.addImageFromBase64(
-          this.src,
-          uri => {
-            this.src = uri;
-            if (this.src.startsWith && !this.src.startsWith('data:')) {
-              this._load();
-            }
-          },
-          error => {
+        const base64result = this.src.split(',')[1];
+        (async () => {
+          try {
+            const MIME = getMIMEforBase64String(base64result);
+            this.localUri = `${documentDirectory}${uuidv1()}-b64image.${MIME}`;
+            await writeAsStringAsync(this.localUri, base64result, {
+              encoding: EncodingTypes.Base64,
+            });
+            this._load();
+          } catch (error) {
             if (global.__debug_browser_polyfill_image) {
               console.log(`@expo/browser-polyfill: Error:`, error.message);
             }
             this.emitter.emit('error', { target: this, error });
           }
-        );
+        })();
         return;
       }
       if (!this.width || !this.height) {
@@ -76,7 +106,7 @@ class HTMLImageElement extends Element {
           },
           error => {
             this.emitter.emit('error', { target: this });
-          }
+          },
         );
       } else {
         this.complete = true;
