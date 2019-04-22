@@ -7,7 +7,7 @@ import './performance';
 import HTMLImageElement from './DOM/HTMLImageElement';
 import HTMLCanvasElement from './DOM/HTMLCanvasElement';
 import HTMLVideoElement from './DOM/HTMLVideoElement';
-import CanvasRenderingContext2D from './API/CanvasRenderingContext2D';
+import CanvasRenderingContext2D from 'expo-2d-context';
 
 global.HTMLImageElement = global.HTMLImageElement || HTMLImageElement;
 global.Image = global.Image || HTMLImageElement;
@@ -16,13 +16,18 @@ global.HTMLVideoElement = global.HTMLVideoElement || HTMLVideoElement;
 global.Video = global.Video || HTMLVideoElement;
 global.HTMLCanvasElement = global.HTMLCanvasElement || HTMLCanvasElement;
 global.Canvas = global.Canvas || HTMLCanvasElement;
-global.CanvasRenderingContext2D = global.CanvasRenderingContext2D || CanvasRenderingContext2D;
+global.CanvasRenderingContext2D =
+  global.CanvasRenderingContext2D || CanvasRenderingContext2D;
 global.WebGLRenderingContext = global.WebGLRenderingContext || function() {};
 
 function checkEmitter() {
   if (
     !window.emitter ||
-    !(window.emitter.on || window.emitter.addEventListener || window.emitter.addListener)
+    !(
+      window.emitter.on ||
+      window.emitter.addEventListener ||
+      window.emitter.addListener
+    )
   ) {
     window.emitter = new EventEmitter();
   }

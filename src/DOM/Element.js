@@ -1,5 +1,6 @@
 import Node from './Node';
-import CanvasRenderingContext2D from '../API/CanvasRenderingContext2D';
+import CanvasRenderingContext2D from 'expo-2d-context';
+
 class Element extends Node {
   constructor(tagName) {
     return super(tagName.toUpperCase());
@@ -38,12 +39,13 @@ class Element extends Node {
     return window.innerHeight;
   }
 
-  getContext(contextType) {
-    if (contextType != '2d' && global.__context) {
-      return global.__context;
+  getContext(contextType, context) {
+    const possibleContext = context || global.__context;
+    if (contextType != '2d' && possibleContext) {
+      return possibleContext;
     }
-    if (contextType === '2d' && global.__context) {
-      return new CanvasRenderingContext2D(global.__context);
+    if (contextType === '2d' && possibleContext) {
+      return new CanvasRenderingContext2D(possibleContext);
     }
 
     return {
