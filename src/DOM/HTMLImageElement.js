@@ -1,6 +1,8 @@
-import { Image, ImageStore } from 'react-native';
+import { Image } from 'react-native';
 import { FileSystem } from 'expo';
-const { writeAsStringAsync, documentDirectory, EncodingTypes } = FileSystem;
+const { writeAsStringAsync, documentDirectory } = FileSystem;
+const EncodingType = FileSystem.EncodingType || FileSystem.EncodingTypes;
+
 import uuidv1 from 'uuid/v1';
 
 import Element from './Element';
