@@ -1,4 +1,10 @@
 import { Image, ImageStore } from 'react-native';
+import {
+  writeAsStringAsync,
+  documentDirectory,
+  EncodingTypes,
+} from 'expo-file-system';
+import uuidv1 from 'uuid/v1';
 
 import Element from './Element';
 class HTMLImageElement extends Element {
@@ -47,21 +53,20 @@ class HTMLImageElement extends Element {
       if (this.src.startsWith && this.src.startsWith('data:')) {
         // is base64 - convert and try again;
         this._base64 = this.src;
-        ImageStore.addImageFromBase64(
-          this.src,
-          uri => {
-            this.src = uri;
-            if (this.src.startsWith && !this.src.startsWith('data:')) {
-              this._load();
-            }
-          },
-          error => {
+        (async () => {
+          try {
+            this.src = `${documentDirectory}${uuidv1()}-b64image.png`;
+            await writeAsStringAsync(localUri, this._base64, {
+              encoding: EncodingTypes.Base64,
+            });
+            this._load();
+          } catch (error) {
             if (global.__debug_browser_polyfill_image) {
               console.log(`@expo/browser-polyfill: Error:`, error.message);
             }
             this.emitter.emit('error', { target: this, error });
           }
-        );
+        })();
         return;
       }
       if (!this.width || !this.height) {
@@ -76,7 +81,7 @@ class HTMLImageElement extends Element {
           },
           error => {
             this.emitter.emit('error', { target: this });
-          }
+          },
         );
       } else {
         this.complete = true;
