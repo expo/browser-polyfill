@@ -39,7 +39,7 @@ class Element extends Node {
     return window.innerHeight;
   }
 
-  getContext(contextType, context) {
+  getContext(contextType, contextOptions, context) {
     const possibleContext = context || global.__context;
     if (contextType != '2d' && possibleContext) {
       return possibleContext;
