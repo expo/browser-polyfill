@@ -1,6 +1,9 @@
 import '@expo/browser-polyfill';
 
-import { Constants, Asset, FileSystem, GLView } from 'expo';
+import { Asset } from 'expo-asset'
+import Constants from 'expo-constants'
+import * as FileSystem from 'expo-file-system'
+import { GLView } from 'expo-gl'
 import React from 'react';
 import { View, Text } from 'react-native';
 
