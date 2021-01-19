@@ -3,7 +3,7 @@ import * as FileSystem from 'expo-file-system';
 const { writeAsStringAsync, documentDirectory } = FileSystem;
 const EncodingType = FileSystem.EncodingType || FileSystem.EncodingTypes;
 
-import uuidv1 from 'uuid/v1';
+import { v1 as uuidv1 } from 'uuid';
 
 import Element from './Element';
 

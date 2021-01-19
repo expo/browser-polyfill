@@ -65,6 +65,7 @@
     "expo-2d-context": "^0.0.2",
     "fbemitter": "^2.1.1",
     "text-encoding": "^0.7.0",
+    "uuid": "^8.3.2",
     "xmldom-qsa": "^1.0.3"
   }
 }
