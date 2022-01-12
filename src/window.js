@@ -18,7 +18,9 @@ global.HTMLCanvasElement = global.HTMLCanvasElement || HTMLCanvasElement;
 global.Canvas = global.Canvas || HTMLCanvasElement;
 global.CanvasRenderingContext2D =
   global.CanvasRenderingContext2D || CanvasRenderingContext2D;
-global.WebGLRenderingContext = global.WebGLRenderingContext || function() {};
+// This causes the cryptic error: 
+// `Value is undefined, expected an Object`
+// global.WebGLRenderingContext = global.WebGLRenderingContext || function() {};
 
 function checkEmitter() {
   if (
