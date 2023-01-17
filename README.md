@@ -26,6 +26,7 @@ DOM is provided with very low support, these are used for libs like pixi.js that
 class Node
 class Element
 class Document
+class HTMLElement
 class HTMLImageElement
 class Image
 class ImageBitmap
