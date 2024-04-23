@@ -88,14 +88,19 @@ global.navigator.standalone =
 window['chrome'] = window['chrome'] || {
   extension: {},
 };
+
 ///https://www.w3schools.com/js/js_window_location.asp
-window.location = window.location || {
-  href: '', //  window.location.href returns the href (URL) of the current page
-  hostname: '', //window.location.hostname returns the domain name of the web host
-  pathname: '', //window.location.pathname returns the path and filename of the current page
-  protocol: 'https', //window.location.protocol returns the web protocol used (http: or https:)
-  assign: null, //window.location.assign loads a new document
-};
+// Newer versions of React Native define `window.location` that can't be reassigned.
+// When the `location` is defined, we don't have to do anything else.
+if ('location' in window === false) {
+  window.location = {
+    href: '', //  window.location.href returns the href (URL) of the current page
+    hostname: '', //window.location.hostname returns the domain name of the web host
+    pathname: '', //window.location.pathname returns the path and filename of the current page
+    protocol: 'https', //window.location.protocol returns the web protocol used (http: or https:)
+    assign: null, //window.location.assign loads a new document
+  };
+}
 
 if (global.document) {
   global.document.readyState = 'complete';
