@@ -1535,9 +1535,9 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@expo/browser-polyfill@../expo-browser-polyfill-1.0.0.tgz":
-  version "1.0.0"
-  resolved "../expo-browser-polyfill-1.0.0.tgz#2d93ae0feb3ccc90b78a98f277f8f8ed8bcbd37d"
+"@expo/browser-polyfill@../expo-browser-polyfill-1.0.1.tgz":
+  version "1.0.1"
+  resolved "../expo-browser-polyfill-1.0.1.tgz#6bcc53f041bbe1f09e60582e1c1c66c767c51634"
   dependencies:
     expo-2d-context "^0.0.3"
     fbemitter "^2.1.1"

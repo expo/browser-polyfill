@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@expo/browser-polyfill": "../expo-browser-polyfill-1.0.0.tgz",
+    "@expo/browser-polyfill": "../expo-browser-polyfill-1.0.1.tgz",
     "expo": "^44.0.4",
     "expo-2d-context": "^0.0.3",
     "expo-file-system": "^13.2.0",
