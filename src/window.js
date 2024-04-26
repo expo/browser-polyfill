@@ -4,11 +4,13 @@ import Document from './DOM/Document';
 
 import './performance';
 
+import HTMLElement from './DOM/HTMLElement';
 import HTMLImageElement from './DOM/HTMLImageElement';
 import HTMLCanvasElement from './DOM/HTMLCanvasElement';
 import HTMLVideoElement from './DOM/HTMLVideoElement';
 import CanvasRenderingContext2D from 'expo-2d-context';
 
+global.HTMLElement = global.HTMLElement || HTMLElement;
 global.HTMLImageElement = global.HTMLImageElement || HTMLImageElement;
 global.Image = global.Image || HTMLImageElement;
 global.ImageBitmap = global.ImageBitmap || HTMLImageElement;
