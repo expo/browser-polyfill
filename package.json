@@ -47,9 +47,9 @@
     "sync-example": "rsync -rv src example/node_modules/@expo/browser-polyfill && rsync -rv package.json example/node_modules/@expo/browser-polyfill"
   },
   "peerDependencies": {
-    "expo-file-system": "^13.2.0",
-    "react": "^17.0.1",
-    "react-native": "^0.64.3"
+    "expo-file-system": "*",
+    "react": "*",
+    "react-native": "*"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.1.1",
